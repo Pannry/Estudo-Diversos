@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -7,6 +8,13 @@ namespace ifood_challenge.Controllers
     [Route("[controller]")]
     public class PlaylistController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+        public PlaylistController(IConfiguration configuration)
+        {
+            // IConfiguration: Carregado automaticamente ao inicar a aplicação
+            _configuration = configuration;
+        }
+
         [HttpGet("city/{nameId}")]
         // http://localhost:5000/playlist/city/fortaleza
         public string GetLocationByName(string nameId)
@@ -14,7 +22,7 @@ namespace ifood_challenge.Controllers
             PlayListRecomedation playlist = new PlayListRecomedation(nameId);
             string line = playlist.getTemperature().ToString();
 
-            SpotifyAPI spotifyAPI = new SpotifyAPI();
+            SpotifyAPI spotifyAPI = new SpotifyAPI(_configuration);
             string line2 = spotifyAPI.GetPermissions();
 
             return line2;

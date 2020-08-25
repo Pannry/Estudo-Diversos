@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.WebUtilities;
 
 using System.Net.Http.Headers;
@@ -11,15 +12,12 @@ namespace ifood_challenge.Controllers
 {
     public class SpotifyAPI
     {
-
         private const string baseUrl = "https://accounts.spotify.com/api/token";
-
-        // https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-3.1&tabs=windows
-        // https://blog.elmah.io/asp-net-core-not-that-secret-user-secrets-explained/
-        // https://imasters.com.br/dotnet/app-secrets-no-desenvolvimento-asp-net-core-2-0
-
-        private const string clientId = "";
-        private const string clientSecret = "";
+        private readonly IConfiguration _configuration;
+        public SpotifyAPI(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         public string getPlayList()
         {
@@ -33,6 +31,13 @@ namespace ifood_challenge.Controllers
 
         public string GetAccessToken()
         {
+            string clientId = _configuration["Spotfy:ServiceApiId"];
+            string clientSecret = _configuration["Spotfy:ServiceApiSecret"];
+
+            Console.WriteLine(clientId);
+            Console.WriteLine(clientSecret);
+
+
             string json = "";
             byte[] authorizationBytes = Encoding.UTF8.GetBytes(clientId + ":" + clientSecret);
             string authorization = WebEncoders.Base64UrlEncode(authorizationBytes);
