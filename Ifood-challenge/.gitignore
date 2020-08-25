@@ -431,3 +431,8 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+## Secrets file
+## dotnet user-secrets list: list all secrets.
+SetSecrets.bat
+SetSecrets.sh
