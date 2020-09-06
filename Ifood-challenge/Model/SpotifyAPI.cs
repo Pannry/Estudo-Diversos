@@ -12,7 +12,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ifood_challenge.Controllers
+namespace ifood_challenge.Models
 {
     public class SpotifyAPI
     {
@@ -26,7 +26,7 @@ namespace ifood_challenge.Controllers
             _client = new HttpClient();
         }
 
-        public string getListOfTracks(string query)
+        public string getListOfTracks(Category query)
         {
             string urlTracks = getUrlPlaylists(query);
             string json = getRequest(urlTracks + "?limit=10");
@@ -38,29 +38,25 @@ namespace ifood_challenge.Controllers
                 select item["track"]["name"]
             ).ToArray();
 
-            string listJson = "";
-
             List<string> jsonText = new List<string>();
             foreach (string item in items)
                 jsonText.Add(item);
 
             Dictionary<string, List<string>> JsonDictionary = new Dictionary<string, List<string>>();
             JsonDictionary.Add("tracks", jsonText);
-            //return JsonConvert.SerializeObject(JsonDictionary, Formatting.Indented);
             return JsonConvert.SerializeObject(JsonDictionary);
         }
 
-        private string getUrlPlaylists(string query)
+        private string getUrlPlaylists(Category query)
         {
             string json = "";
             Dictionary<string, string> headers = new Dictionary<string, string>();
-            headers.Add("q", query);
+            Console.WriteLine(query.Value);
+            headers.Add("q", query.Value);
             headers.Add("type", "playlist");
-            headers.Add("limit", "1");
+            headers.Add("limit", "10");
             headers.Add("include_external", "audio");
             json = getRequest(headers);
-
-            // return json;
 
             JObject rss = JObject.Parse(json);
             return (string)rss["playlists"]["items"][0]["tracks"]["href"];
@@ -105,7 +101,7 @@ namespace ifood_challenge.Controllers
 
         private string GetAccessToken()
         {
-            string json = authenticate();
+            string json = Authenticate();
             var options = new JsonDocumentOptions { AllowTrailingCommas = true };
 
             JsonDocument document = JsonDocument.Parse(json, options);
@@ -116,7 +112,7 @@ namespace ifood_challenge.Controllers
             return "";
         }
 
-        private string authenticate()
+        private string Authenticate()
         {
             string clientId = _configuration["Spotfy:ServiceApiId"];
             string clientSecret = _configuration["Spotfy:ServiceApiSecret"];

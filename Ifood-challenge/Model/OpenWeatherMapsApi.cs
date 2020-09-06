@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using System.Text.Json;
 
-namespace ifood_challenge.Controllers
+namespace ifood_challenge.Models
 {
 
     public class OpenWeatherMapsApi

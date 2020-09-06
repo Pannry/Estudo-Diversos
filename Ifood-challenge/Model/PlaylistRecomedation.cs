@@ -1,10 +1,9 @@
 using System;
 
-namespace ifood_challenge.Controllers
+namespace ifood_challenge.Models
 {
     public class PlayListRecomedation
     {
-        // public double Latitude { get; set; }
         private double _temperature;
         public PlayListRecomedation(string city)
         {
@@ -16,17 +15,12 @@ namespace ifood_challenge.Controllers
             _temperature = requestTemperure(latitude, longitude);
         }
 
-        public string GetRecomedation()
+        public Category getRecomedation()
         {
-            if (_temperature > 30) return "Party";
-            if (_temperature <= 30 && _temperature >= 15) return "PopMusic";
-            if (_temperature >= 10 && _temperature <= 14) return "RockMusic";
-            return "ClassicMusic";
-        }
-
-        public double getTemperature()
-        {
-            return _temperature;
+            if (_temperature > 30) return Category.PartyMusic;
+            if (_temperature <= 30 && _temperature >= 15) return Category.PopMusic;
+            if (_temperature >= 10 && _temperature <= 14) return Category.RockMusic;
+            return Category.ClassicalMusic;
         }
 
         private double requestTemperure(double latitude, double longitude)
