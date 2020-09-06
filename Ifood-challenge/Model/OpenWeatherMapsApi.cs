@@ -40,8 +40,6 @@ namespace ifood_challenge.Controllers
                     return await Task<string>.FromResult(json);
                 }).Result;
 
-                Console.WriteLine(json);
-
                 return GetTemperatureInJson(json);
             }
             catch (Exception e)

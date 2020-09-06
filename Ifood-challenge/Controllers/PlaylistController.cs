@@ -1,6 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http;
 using System;
+using Newtonsoft.Json.Linq;
 
 namespace ifood_challenge.Controllers
 {
@@ -17,15 +19,13 @@ namespace ifood_challenge.Controllers
 
         [HttpGet("city/{nameId}")]
         // http://localhost:5000/playlist/city/fortaleza
-        public string GetLocationByName(string nameId)
+        public ContentResult GetLocationByName(string nameId)
         {
             PlayListRecomedation playlist = new PlayListRecomedation(nameId);
             string line = playlist.getTemperature().ToString();
 
             SpotifyAPI spotifyAPI = new SpotifyAPI(_configuration);
-            string line2 = spotifyAPI.GetPermissions();
-
-            return line2;
+            return Content(spotifyAPI.getListOfTracks("PopMusic"), "application/json");
         }
 
         [HttpGet("coordinates/{latitude}/{longitude}")]
@@ -42,8 +42,6 @@ namespace ifood_challenge.Controllers
 
 // ?cidade = <nome>
 // ?latitute = <numero> longitude = <numero>
-
-
 
 // ~~~~~~~~~~~~         Formas        ~~~~~~~~~~~~~~
 
