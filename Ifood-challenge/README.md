@@ -5,6 +5,8 @@ https://github.com/ifood/vemproifood-backend
 
 Configuring Secretes
 
+* 0 - dotnet user-secrets init
+
 * 1 - Make a copy of "SetSecretsExample.bat" and rename to "SetSecrets.bat" for windows, or "SetSecrets.sh" for linux.
 
 * 2 - Change values
