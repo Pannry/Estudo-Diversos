@@ -1,0 +1,3 @@
+string.title()                      #Iniciais Maiusculas, restante  minusculas
+string.upper() || string.lower()    #deixa toda a frase maiuscula || minuscula
++                                   #concatenação de string

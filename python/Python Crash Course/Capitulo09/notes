@@ -1,0 +1,18 @@
+class class_name():
+
+    def __init__( self, atr1, atr2 ):
+    #inicializa metodos
+
+    def metodo1(self):
+        #code
+
+    def metodo2(self, a):
+        #code
+
+class class_name_filha(class_name):
+
+    def __init__(self, atr1, atr2):
+        super(class_name_filha, self).__init__(make, atr1, atr3)
+
+    def metodo3(self):
+        #code

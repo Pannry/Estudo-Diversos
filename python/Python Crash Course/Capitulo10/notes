@@ -1,0 +1,3 @@
+read()  -  ler o arquivo inteiro de uma vez só
+readlines()  --  ler todo o arquivo linha por linha
+readline()  -  le apenas uma linha
